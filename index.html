@@ -396,7 +396,12 @@
         const btn = event.target;
         pendingDecision = btn.dataset.decision;
         previousButton = document.querySelector('.decision-btn.active');
-        document.getElementById('confirm-modal').style.display = 'flex';
+        const textarea = document.getElementById('feedback-textarea');
+        if(textarea.value !== "") {
+            document.getElementById('confirm-modal').style.display = 'flex';
+        } else {
+            populateEmailText(pendingDecision);
+        }
     }
 
     function confirmOverwrite(confirm) {
