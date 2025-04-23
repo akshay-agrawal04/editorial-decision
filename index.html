@@ -168,6 +168,18 @@
             color: white;
             border-color: #0072c6;
         }
+        .toggle-report-link {
+            display: inline-block;
+            margin-top: 0.5em;
+            color: #0072c6;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        .toggle-report-link:hover {
+            color: #004d99;
+        }
     </style>
 </head>
 <body>
@@ -269,7 +281,7 @@
                     <p>Date: 25 Mar 2025</p>
                     <p>Recommendation: Revise</p>
 
-                    <button class="toggle-report-btn" onclick="toggleReport(this)">View full report</button>
+                    <a href="#" class="toggle-report-link" onclick="toggleReport(event, this)">View full report ↓</a>
                     <div class="full-report" style="display: none; margin-top: 1em;">
                         <p><strong>Confidential feedback for the editor:</strong></p>
                         <p>Recommendation: <strong>Revise</strong></p>
@@ -277,10 +289,14 @@
                         <p><strong>Is the study design appropriate to answer the research question?</strong></p>
                         <p>Yes</p>
                         <p><strong>Are the methods sufficiently described to allow the study to be repeated?</strong>
-                        </p><p>Yes</p>
-                        <p><strong>Is the use of statistics and treatment of uncertainties appropriate?</strong></p><p>Yes</p>
-                        <p><strong>Is the presentation of the work clear?</strong></p><p>Yes</p>
-                        <p><strong>Are the images in this manuscript free from apparent manipulation?</strong></p><p>Yes</p>
+                        </p>
+                        <p>Yes</p>
+                        <p><strong>Is the use of statistics and treatment of uncertainties appropriate?</strong></p>
+                        <p>Yes</p>
+                        <p><strong>Is the presentation of the work clear?</strong></p>
+                        <p>Yes</p>
+                        <p><strong>Are the images in this manuscript free from apparent manipulation?</strong></p>
+                        <p>Yes</p>
 
                         <p><strong>Confidential comments to the editor:</strong></p>
                         <p>There are no ethical or conflict concerns. The study is sound, but several sections need
@@ -427,15 +443,13 @@
         alert(`Previewing Decision:\nDecision: ${decision}\nFeedback: ${feedback}`);
     }
 
-    function toggleReport(button) {
-        const report = button.nextElementSibling;
-        if (report.style.display === "none") {
-            report.style.display = "block";
-            button.textContent = "Hide full report";
-        } else {
-            report.style.display = "none";
-            button.textContent = "View full report";
-        }
+    function toggleReport(event, link) {
+        event.preventDefault(); // Prevent page jump
+        const report = link.nextElementSibling;
+        const isVisible = report.style.display === "block";
+
+        report.style.display = isVisible ? "none" : "block";
+        link.textContent = isVisible ? "View full report ↓" : "Hide full report ↑";
     }
 
     window.onload = function () {
